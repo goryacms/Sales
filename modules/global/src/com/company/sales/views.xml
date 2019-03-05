@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
-    <view class="com.company.sales.entity.Order"
+    <view class="com.company.sales.entity.Shop"
           extends="_local"
+          name="shopWithAddressAndProducts">
+        <property name="address"
+                  view="_minimal">
+            <property name="street"/>
+        </property>
+        <property name="productList"
+                  view="_minimal">
+            <property name="price"/>
+        </property>
+    </view>
+    <view class="com.company.sales.entity.Order"
           name="orderWithCustomer">
         <property name="customer"
                   view="_minimal"/>
+        <property name="shop"
+                  view="_minimal">
+            <property name="address"
+                      view="_minimal">
+                <property name="street"/>
+                <property name="houseNumber"/>
+            </property>
+        </property>
+        <property name="date"/>
+        <property name="amount"/>
+        <property name="total"/>
     </view>
+    <view class="com.company.sales.entity.Product"
+          extends="_local"
+          name="productView"/>
 </views>

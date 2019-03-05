@@ -12,6 +12,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
+import javax.persistence.OneToOne;
 
 @Table(name = "SALES_ORDER")
 @Entity(name = "sales$Order")
@@ -22,6 +25,18 @@ public class Order extends StandardEntity {
     @JoinColumn(name = "CUSTOMER_ID")
     protected Customer customer;
 
+    @Column(name = "TOTAL")
+    protected BigDecimal total;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SHOP_ID")
+    protected Shop shop;
+
+    @OnDelete(DeletePolicy.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_LINE_LIST_ID")
+    protected OrderLine orderLineList;
+
     @Temporal(TemporalType.DATE)
     @NotNull
     @Column(name = "DATE_", nullable = false)
@@ -29,6 +44,33 @@ public class Order extends StandardEntity {
 
     @Column(name = "AMOUNT")
     protected BigDecimal amount;
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+
+    public void setOrderLineList(OrderLine orderLineList) {
+        this.orderLineList = orderLineList;
+    }
+
+    public OrderLine getOrderLineList() {
+        return orderLineList;
+    }
+
 
     public void setCustomer(Customer customer) {
         this.customer = customer;

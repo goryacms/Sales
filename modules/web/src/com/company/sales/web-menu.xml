@@ -5,4 +5,9 @@
         <item screen="sales$Customer.browse"/>
         <item screen="sales$Order.browse"/>
     </menu>
+    <menu id="application-catalogs"
+          insertBefore="administration">
+        <item screen="sales$Product.browse"/>
+        <item screen="sales$Shop.browse"/>
+    </menu>
 </menu-config>

@@ -35,8 +35,10 @@
             </actions>
             <columns>
                 <column id="customer"/>
+                <column id="shop"/>
                 <column id="date"/>
                 <column id="amount"/>
+                <column id="total"/>
             </columns>
             <rows datasource="ordersDs"/>
             <rowsCount/>

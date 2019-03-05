@@ -9,6 +9,22 @@
         <datasource id="orderDs"
                     class="com.company.sales.entity.Order"
                     view="orderWithCustomer"/>
+        <collectionDatasource id="productsDs"
+                              class="com.company.sales.entity.Product"
+                              view="productView">
+            <query>
+                <![CDATA[select e from sales$Product e
+]]>
+            </query>
+        </collectionDatasource>
+        <groupDatasource id="sumOrdersDs"
+                         class="com.company.sales.entity.Order">
+            <query>
+                <![CDATA[select sum(e.orderLineList.product.price) from sales$Order e
+
+--where e.id = :ds$orderDs]]>
+            </query>
+        </groupDatasource>
     </dsContext>
     <dialogMode forceDialog="true"
                 height="AUTO"
@@ -21,8 +37,32 @@
                 <field property="customer"/>
                 <field property="date"/>
                 <field property="amount"/>
+                <field link="true"
+                       property="shop"/>
             </column>
         </fieldGroup>
+        <hbox spacing="true">
+            <label value="msg://Total sum"
+                   width="100px"/>
+            <textField id="sumOrdersField"
+                       datasource="sumOrdersDs"
+                       datatype="decimal"
+                       editable="false"
+                       property="total"/>
+        </hbox>
+        <table id="productsTable"
+               height="224px"
+               width="100%">
+            <actions>
+                <action id="add"/>
+                <action id="create"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="price"/>
+            </columns>
+            <rows datasource="productsDs"/>
+        </table>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>

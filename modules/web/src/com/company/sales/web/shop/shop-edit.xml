@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.company.sales.web.shop.ShopEdit"
+        datasource="shopDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.sales.web.shop">
+    <dsContext>
+        <datasource id="shopDs"
+                    class="com.company.sales.entity.Shop"
+                    view="shopWithAddressAndProducts">
+            <datasource id="addressDs"
+                        property="address"/>
+            <collectionDatasource id="productListDs"
+                                  property="productList"/>
+        </datasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="shopDs">
+            <column width="250px">
+                <field datasource="addressDs"
+                       property="city"/>
+                <field datasource="addressDs"
+                       property="street"/>
+                <field property="shopType"/>
+            </column>
+        </fieldGroup>
+        <groupBox id="productListBox"
+                  caption="msg://com.company.sales.entity/Shop.productList">
+            <table id="productListTable"
+                   height="200px"
+                   width="100%">
+                <actions>
+                    <action id="add"/>
+                    <action id="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="price"/>
+                </columns>
+                <rows datasource="productListDs"/>
+                <buttonsPanel>
+                    <button action="productListTable.add"/>
+                    <button action="productListTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

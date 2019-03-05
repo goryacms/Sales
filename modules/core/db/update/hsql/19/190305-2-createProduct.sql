@@ -1,0 +1,1 @@
+create unique index IDX_SALES_PRODUCT_UNQ on SALES_PRODUCT (NAME, PRICE) ;
